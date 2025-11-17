@@ -1,70 +1,70 @@
-<?php
+<?php 
+
+// Pastikan kelas induk User dan Interface dimuat.
 require_once 'User.php';
 require_once 'LoginInterface.php';
 
 /**
- * Kelas Admin (Child Class / Kelas Turunan)
- * Mewarisi dari kelas User dan mengimplementasikan LoginInterface
- * Modul 5: Polymorphism (Polimorfisme)
+ * Kelas Anak (Child Class) Admin.
+ * Mewarisi dari User (extends) dan mematuhi kontrak Login (implements).
  */
 class Admin extends User implements LoginInterface
 {
-    // Properti tambahan khusus Admin
-    private $akses_level;
-    
+    private $akses_level = 'full';
+
     /**
      * Konstruktor Admin.
-     * Memanggil konstruktor parent (User) menggunakan parent::__construct()
      */
-    public function __construct($nama, $akses_level)
+    public function __construct($nama)
     {
-        parent::__construct($nama); // Memanggil konstruktor kelas induk
-        $this->akses_level = $akses_level;
-        $this->role = 'Admin'; // Mengubah role menjadi 'Admin'
+        // Memanggil konstruktor kelas induk (User)
+        parent::__construct($nama);
+
+        // Mengubah properti role dari kelas induk
+        $this->role = 'admin';
     }
-    
+
     // ===========================================
     // IMPLEMENTASI DARI LoginInterface
     // ===========================================
-    
+
     /**
      * Implementasi wajib dari LoginInterface.
      */
     public function login()
     {
-        return "Admin **{$this->nama}** berhasil login ke sistem dengan hak akses penuh.<br>";
+        return "Admin **{$this->nama}** berhasil login ke sistem dengan hak akses penuh.";
     }
-    
+
     /**
      * Implementasi wajib dari LoginInterface.
      */
     public function logout()
     {
-        return "Admin **{$this->nama}** berhasil logout dari sistem.<br>";
+        return "Admin **{$this->nama}** berhasil logout dari sistem.";
     }
-    
+
     // ===========================================
     // METHOD OVERRIDING & KHUSUS ADMIN
     // ===========================================
-    
+
     /**
      * Method Overriding: Menimpa metode salam() dari kelas User.
      */
     public function salam()
     {
-        // Menggunakan parent::salam() untuk mendapatkan sapaan default dari Induk
+        // Mengambil pesan salam dari kelas induk (User)
         $pesan_induk = parent::salam();
-        return $pesan_induk . " Sebagai admin, saya memiliki **akses {$this->akses_level}**.<br>";
+        return $pesan_induk . " Sebagai admin, saya memiliki **akses {$this->akses_level}**.";
     }
-    
+
     /**
      * Metode khusus Admin.
      */
     public function kelolaSistem()
     {
-        return "Admin {$this->nama} sedang mengelola data sistem.<br>";
+        return "Admin {$this->nama} sedang mengelola data sistem.";
     }
-    
-    // Destruktor dari User tetap diwariskan dan dijalankan otomatis.
+
+    // Destruktor dari User tetap diwariskan dan akan berjalan otomatis.
 }
-?>
