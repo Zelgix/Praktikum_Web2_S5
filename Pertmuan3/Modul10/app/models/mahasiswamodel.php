@@ -1,6 +1,5 @@
 <?php
-
-/**
+/*
  * Model spesifik untuk mengelola data Mahasiswa
  * Mewarisi fungsionalitas database dari kelas Database
  */
@@ -34,6 +33,7 @@ class MahasiswaModel
     {
         // Menggunakan placeholder :id untuk prepared statement
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id');
+
         // Binding nilai (Aman dari SQL Injection)
         $this->db->bind('id', $id);
         return $this->db->single();
@@ -47,8 +47,8 @@ class MahasiswaModel
     public function tambahDataMahasiswa($data)
     {
         $query = "INSERT INTO mahasiswa
-                  VALUES
-                  ('', :npm, :nama, :email, :jurusan)"; // ID dikosongkan (AUTO_INCREMENT)
+                    VALUES
+                    ('', :npm, :nama, :email, :jurusan)"; // ID dikosongkan (AUTO_INCREMENT)
         
         $this->db->query($query);
         // Binding semua parameter
@@ -92,7 +92,7 @@ class MahasiswaModel
                     email = :email,
                     jurusan = :jurusan
                   WHERE id = :id";
-
+        
         $this->db->query($query);
         $this->db->bind('npm', $data['npm']);
         $this->db->bind('nama', $data['nama']);

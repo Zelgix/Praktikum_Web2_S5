@@ -1,6 +1,5 @@
 <?php
-
-/**
+/*
  * Kelas inti untuk koneksi database menggunakan PDO
  * Berisi logika koneksi, prepared statement, dan error handling
  */
@@ -71,7 +70,7 @@ class Database
                     $type = PDO::PARAM_STR;
             }
         }
-        
+
         $this->stmt->bindValue($param, $value, $type);
     }
 
